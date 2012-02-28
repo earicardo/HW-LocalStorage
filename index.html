@@ -13,13 +13,13 @@
 
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 
-	<link rel="stylesheet" href="normalize.css" media="screen" />
+	<link rel="stylesheet" href="stylesheet.css" media="screen" />
 
 	<script src="modernizr-2.5.3.js"></script>
 </head>
 <body>
 
-<div class="wrapper">
+<div class="wrapper center">
 	<header>
 		<h1>Vigilante Application</h1>
 		<h2>2012 rev. #1b75</h2>
@@ -28,66 +28,68 @@
 	<section>
 		<form>
 			<fieldset>
-				<legend>Personal Information</legend>
+				<legend class="bold">Personal Information</legend>
 
 				<label for="name">Name</label>
 				<input type="text" name="name" id="name" />
+<br><br>
 
 				<label for="age">Age</label>
 				<input type="number" name="age" id="age" />
-
+<br><br>
 				<label for="email">Email</label>
 				<input type="email" name="email" id="email" />
-
+<br><br>
 				<label for="dayjob">Day Job</label>
 				<input type="text" name="dayjob" id="dayjob" />
-
+<br><br>
 				<label for="startdate">Start Date</label>
 				<input type="date" name="startdate" id="startdate" />
-
+<br><br>
 				<label for="blogurl">Blog URL</label>
 				<input type="url" name="blogurl" id="blogurl" />
 			</fieldset>
-
+<br>
 			<fieldset>
-				<legend>Vigilante Details</legend>
+				<legend class="bold">Vigilante Details</legend>
 
 				<label for="vigilantename">Name</label>
 				<input type="text" name="vigilantename" id="vigilantename" />
-
+<br><br>
 				<label for="symbol">Symbol</label>
 				<input type="text" name="symbol" id="symbol" />
-
+<br><br>
 				<label for="primarycolor">Primary Color</label>
 				<input type="color" name="primarycolor" id="primarycolor" />
-
+<br><br>
 				<label for="motivations">Motivations</label>
 				<select name="motivations" id="motivations" multiple size="8">
 					<option value="parentskilled">Parents Killed In Front Me</option>
 					<!-- create at least 7 more vigilante motivations. must stay a multi-select. -->
 				</select>
-
+<br><br>
 				<label for="weapon">Weapon of Choice</label>
 				<select name="weapon" id="weapon">
 					<option value=""></option>
 					<option value="fists">Bare Fists</option>
 					<!-- create at least 7 more weapon options. must stay a single select. -->
 				</select>
-
+<br><br>
 				<label for="reason">Why Should We Choose You?</label>
 				<textarea name="reason" id="reason"></textarea>
 			</fieldset>
-
+<br>
 			<fieldset>
-				<legend>Verification</legend>
+				<legend class="bold">Verification</legend>
 
 				<p>To ensure only qualified people apply, enter your pre-assigned unique vigilante invite code blow.</p>
 
-				<label for="code">Vigilante Code</label>
+				<label for="code" class="bold">Vigilante Code</label>
 				<input type="text" name="code" id="code" />
 			</fieldset>
-
+<br>
 			<button type="submit" id="submit">Submit Application</button>
+            	<button type="button" id="clear" class="rounded alert">Clear Local Storage</button>
 		</form>
 	</section>
 	<footer>
@@ -117,9 +119,131 @@
 			}
 		});
 
+
+//-----------------------------------
+$('#age').keyup(function() {
+			// only store the name if it's not blank
+			if ($('#age').val() != '') {
+				localStorage.setItem('age', $('#age').val());
+			}
+		});
+
+//-----------------------------------
+$('#email').keyup(function() {
+			// only store the name if it's not blank
+			if ($('#email').val() != '') {
+				localStorage.setItem('email', $('#email').val());
+			}
+		});
+
+//-----------------------------------
+$('#dayjob').keyup(function() {
+			// only store the name if it's not blank
+			if ($('#dayjob').val() != '') {
+				localStorage.setItem('dayjob', $('#dayjob').val());
+			}
+		});
+
+//-----------------------------------
+$('#startdate').keyup(function() {
+			// only store the name if it's not blank
+			if ($('#startdate').val() != '') {
+				localStorage.setItem('startdate', $('#startdate').val());
+			}
+		});
+
+//-----------------------------------
+$('#blogurl').keyup(function() {
+			// only store the name if it's not blank
+			if ($('#blogurl').val() != '') {
+				localStorage.setItem('blogurl', $('#blogurl').val());
+			}
+		});
+
+//-----------------------------------
+$('#vigilantename').keyup(function() {
+			// only store the name if it's not blank
+			if ($('#blogurl').val() != '') {
+				localStorage.setItem('vigilantename', $('#vigilantename').val());
+			}
+		});
+
+//-----------------------------------
+$('#symbol').keyup(function() {
+			// only store the name if it's not blank
+			if ($('#symbol').val() != '') {
+				localStorage.setItem('symbol', $('#symbol').val());
+			}
+		});
+//-----------------------------------
+$('#primarycolor').keyup(function() {
+			// only store the name if it's not blank
+			if ($('#primarycolor').val() != '') {
+				localStorage.setItem('primarycolor', $('#primarycolor').val());
+			}
+		});
+//-----------------------------------
+$('#motivations').keyup(function() {
+			// only store the name if it's not blank
+			if ($('#motivations').val() != '') {
+				localStorage.setItem('motivations', $('#motivations').val());
+			}
+		});
+
+//-----------------------------------
+$('#weapon').keyup(function() {
+			// only store the name if it's not blank
+			if ($('#weapon').val() != '') {
+				localStorage.setItem('weapon', $('#weapon').val());
+			}
+		});
+//-----------------------------------
+$('#reason').keyup(function() {
+			// only store the name if it's not blank
+			if ($('#reason').val() != '') {
+				localStorage.setItem('reason', $('#reason').val());
+			}
+		});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		// for an example of storing information from a multiple select,
 		// see line 266 from the objects demo from the slides 
 		// http://iam.colum.edu/Jon.Petto/ewt/local-storage/demo/objects.php
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	});
 
 	function populate_form_with_stored_info() {
@@ -129,8 +253,86 @@
 			$('#name').val(stored_name);
 		}
 
-		// check for stored age...
+			// check for stored name
+		var stored_age = localStorage.getItem('age');
+		if (stored_age !== '') {
+			$('#age').val(stored_age);
+		}
+		
+				// check for stored name
+		var stored_email = localStorage.getItem('email');
+		if (stored_email !== '') {
+			$('#email').val(stored_email);
+		}
+		
+				// check for stored name
+		var stored_dayjob = localStorage.getItem('dayjob');
+		if (stored_dayjob !== '') {
+			$('#dayjob').val(stored_dayjob);
+		}
+		
+				// check for stored name
+		var stored_startdate = localStorage.getItem('startdate');
+		if (stored_startdate !== '') {
+			$('#startdate').val(stored_startdate);
+		}
+		
+				// check for stored name
+		var stored_blogurl = localStorage.getItem('blogurl');
+		if (stored_blogurl !== '') {
+			$('#blogurl').val(stored_blogurl);
+		}
+		
+				// check for stored name
+		var stored_vigilantename = localStorage.getItem('vigilantename');
+		if (stored_vigilantename !== '') {
+			$('#vigilantename').val(stored_vigilantename);
+		}
+		
+				// check for stored name
+		var stored_symbol = localStorage.getItem('symbol');
+		if (stored_symbol !== '') {
+			$('#symbol').val(stored_symbol);
+		}
+		
+				// check for stored name
+		var stored_primarycolor = localStorage.getItem('primarycolor');
+		if (stored_primarycolor !== '') {
+			$('#primarycolor').val(stored_primarycolor);
+		}
+		
+				// check for stored name
+		var stored_motivations = localStorage.getItem('motivations');
+		if (stored_motivations !== '') {
+			$('#motivations').val(stored_motivations);
+		}
+		
+				// check for stored name
+		var stored_weapon = localStorage.getItem('weapon');
+		if (stored_weapon !== '') {
+			$('#weapon').val(stored_weapon);
+		}
+		
+					// check for stored name
+		var stored_reason = localStorage.getItem('reason');
+		if (stored_reason !== '') {
+			$('#reason').val(stored_reason);
+		}	
+
 	}
+	
+	
+	// clear localStorage and interface
+		clear.click(function(e) {
+			e.preventDefault();
+
+			window.localStorage.clear();
+			index.html('');
+
+		
+		});
+	
+	
 </script>
 
 </body>
