@@ -13,102 +13,88 @@
 
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 
-	<link rel="stylesheet" href="normalize.css" media="screen" />
+	<link rel="stylesheet" href="stylesheet.css" media="screen" />
 
-	<style type="text/css">
-		ul {
-			margin: 0;
-			padding: 0;
-			list-style-type: none;
-		}
-
-		li { float: left; }
-
-		.users .user {
-			float: left;
-			margin: 0 10px 10px 0;
-		}
-
-		.user {
-			display: block;
-			width: 48px;
-			height: 48px;
-			border: 2px solid #333;
-			opacity: 0.8;
-			-webkit-transition: all 0.4s ease;
-			-moz-transition: all 0.4s ease;
-			transition: all 0.4s ease;
-		}
-
-		.user:hover { opacity: 1; }
-
-		.tweet {
-			width: 280px;
-			height: 140px;
-			margin: 0 20px 20px 0;
-			padding: 10px;
-			background: #FFFEED;
-			-webkit-border-radius: 4px;
-			-moz-border-radius: 4px;
-			border-radius: 4px;
-			border: 1px solid #E8E7DC;
-			-webkit-transition: all 0.4s ease;
-			-moz-transition: all 0.4s ease;
-			transition: all 0.4s ease;
-		}
-
-		.tweet:hover { background: #FFFCD1; }
-
-		.tweet .user {
-			float: left;
-			margin-right: 10px;
-		}
-
-		.tweet:hover .user { opacity: 1; }
-
-		.tweet span {
-			display: block;
-			margin-top: 10px;
-			color: #888;
-			font-size: 12px;
-		}
-
-		/* clearfix for floats */
-		.clearfix:before,
-		.clearfix:after {
-		    content:"";
-		    display:table;
-		}
-
-		.clearfix:after { clear:both; }
-		.clearfix { zoom:1; }
-	</style>
+	<script src="modernizr-2.5.3.js"></script>
 </head>
 <body>
 
-<div class="wrapper">
+<div class="wrapper center">
 	<header>
-		<h1>Tweets!</h1>
-		<h2>&amp; the Twitterers Who Twote Them</h2>
+		<h1>Vigilante Application</h1>
+		<h2>2012 rev. #1b75</h2>
 	</header>
 
-	<input type="search" id="searchBar" name="search" value="" required />
-	<button type="button" id="search-button" name="search-button">Find Tweets</button>
+	<section>
+		<form>
+			<fieldset>
+				<legend class="bold">Personal Information</legend>
 
-    <p id="searchTerm"></p>
+				<label for="name">Name</label>
+				<input type="text" name="name" id="name" />
+<br><br>
 
+				<label for="age">Age</label>
+				<input type="number" name="age" id="age" />
+<br><br>
+				<label for="email">Email</label>
+				<input type="email" name="email" id="email" />
+<br><br>
+				<label for="dayjob">Day Job</label>
+				<input type="text" name="dayjob" id="dayjob" />
+<br><br>
+				<label for="startdate">Start Date</label>
+				<input type="date" name="startdate" id="startdate" />
+<br><br>
+				<label for="blogurl">Blog URL</label>
+				<input type="url" name="blogurl" id="blogurl" />
+			</fieldset>
+<br>
+			<fieldset>
+				<legend class="bold">Vigilante Details</legend>
 
+				<label for="vigilantename">Name</label>
+				<input type="text" name="vigilantename" id="vigilantename" />
+<br><br>
+				<label for="symbol">Symbol</label>
+				<input type="text" name="symbol" id="symbol" />
+<br><br>
+				<label for="primarycolor">Primary Color</label>
+				<input type="color" name="primarycolor" id="primarycolor" />
+<br><br>
+				<label for="motivations">Motivations</label>
+				<select name="motivations" id="motivations" multiple size="8">
+					<option value="parentskilled">Parents Killed In Front Me</option>
+					<!-- create at least 7 more vigilante motivations. must stay a multi-select. -->
+				</select>
+<br><br>
+				<label for="weapon">Weapon of Choice</label>
+				<select name="weapon" id="weapon">
+					<option value=""></option>
+					<option value="fists">Bare Fists</option>
+					<!-- create at least 7 more weapon options. must stay a single select. -->
+				</select>
+<br><br>
+				<label for="reason">Why Should We Choose You?</label>
+				<textarea name="reason" id="reason"></textarea>
+			</fieldset>
+<br>
+			<fieldset>
+				<legend class="bold">Verification</legend>
 
-	<section class="users clearfix">
-		<header><b>The Users</b></header>
-		<div id="user-list"></div>
+				<p>To ensure only qualified people apply, enter your pre-assigned unique vigilante invite code blow.</p>
+
+				<label for="code" class="bold">Vigilante Code</label>
+				<input type="text" name="code" id="code" />
+			</fieldset>
+<br>
+			<button type="submit" id="submit">Submit Application</button>
+            	<button type="button" id="clear" class="rounded alert">Clear Local Storage</button>
+		</form>
 	</section>
-
-	<section class="tweets">
-		<header><b>The Tweets</b></header>
-		<ul id="tweet-list"></ul>
-    
-	</section>
+	<footer>
+		&copy;2012 Vigilante Services Inc.
+	</footer>
 </div> <!-- /.wrapper -->
 
 <!-- KEEP THIS BELOW ALL MARKUP! -->
@@ -118,72 +104,234 @@
 <![endif]-->
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script type="text/javascript" src="icanhaz.min.js"></script>
 
 <script type="text/javascript">
-	// YOUR JS GOES HERE
-	// here's the twitter URL template
-	// http://search.twitter.com/search.json?q=SEARCH_VALUE_HERE&rpp=20&include_entities=false&result_type=mixed
+	// wait until the page is fully loaded to start firing our javascript
+	$(document).ready(function() {
+		// call function that will populate form with info from local storage
+		populate_form_with_stored_info();
+
+		// store the name every time a user types in the name field
+		$('#name').keyup(function() {
+			// only store the name if it's not blank
+			if ($('#name').val() != '') {
+				localStorage.setItem('name', $('#name').val());
+			}
+		});
+
+
+//-----------------------------------
+$('#age').keyup(function() {
+			// only store the name if it's not blank
+			if ($('#age').val() != '') {
+				localStorage.setItem('age', $('#age').val());
+			}
+		});
+
+//-----------------------------------
+$('#email').keyup(function() {
+			// only store the name if it's not blank
+			if ($('#email').val() != '') {
+				localStorage.setItem('email', $('#email').val());
+			}
+		});
+
+//-----------------------------------
+$('#dayjob').keyup(function() {
+			// only store the name if it's not blank
+			if ($('#dayjob').val() != '') {
+				localStorage.setItem('dayjob', $('#dayjob').val());
+			}
+		});
+
+//-----------------------------------
+$('#startdate').keyup(function() {
+			// only store the name if it's not blank
+			if ($('#startdate').val() != '') {
+				localStorage.setItem('startdate', $('#startdate').val());
+			}
+		});
+
+//-----------------------------------
+$('#blogurl').keyup(function() {
+			// only store the name if it's not blank
+			if ($('#blogurl').val() != '') {
+				localStorage.setItem('blogurl', $('#blogurl').val());
+			}
+		});
+
+//-----------------------------------
+$('#vigilantename').keyup(function() {
+			// only store the name if it's not blank
+			if ($('#blogurl').val() != '') {
+				localStorage.setItem('vigilantename', $('#vigilantename').val());
+			}
+		});
+
+//-----------------------------------
+$('#symbol').keyup(function() {
+			// only store the name if it's not blank
+			if ($('#symbol').val() != '') {
+				localStorage.setItem('symbol', $('#symbol').val());
+			}
+		});
+//-----------------------------------
+$('#primarycolor').keyup(function() {
+			// only store the name if it's not blank
+			if ($('#primarycolor').val() != '') {
+				localStorage.setItem('primarycolor', $('#primarycolor').val());
+			}
+		});
+//-----------------------------------
+$('#motivations').keyup(function() {
+			// only store the name if it's not blank
+			if ($('#motivations').val() != '') {
+				localStorage.setItem('motivations', $('#motivations').val());
+			}
+		});
+
+//-----------------------------------
+$('#weapon').keyup(function() {
+			// only store the name if it's not blank
+			if ($('#weapon').val() != '') {
+				localStorage.setItem('weapon', $('#weapon').val());
+			}
+		});
+//-----------------------------------
+$('#reason').keyup(function() {
+			// only store the name if it's not blank
+			if ($('#reason').val() != '') {
+				localStorage.setItem('reason', $('#reason').val());
+			}
+		});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		// for an example of storing information from a multiple select,
+		// see line 266 from the objects demo from the slides 
+		// http://iam.colum.edu/Jon.Petto/ewt/local-storage/demo/objects.php
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	});
+
+	function populate_form_with_stored_info() {
+		// check for stored name
+		var stored_name = localStorage.getItem('name');
+		if (stored_name !== '') {
+			$('#name').val(stored_name);
+		}
+
+			// check for stored name
+		var stored_age = localStorage.getItem('age');
+		if (stored_age !== '') {
+			$('#age').val(stored_age);
+		}
+		
+				// check for stored name
+		var stored_email = localStorage.getItem('email');
+		if (stored_email !== '') {
+			$('#email').val(stored_email);
+		}
+		
+				// check for stored name
+		var stored_dayjob = localStorage.getItem('dayjob');
+		if (stored_dayjob !== '') {
+			$('#dayjob').val(stored_dayjob);
+		}
+		
+				// check for stored name
+		var stored_startdate = localStorage.getItem('startdate');
+		if (stored_startdate !== '') {
+			$('#startdate').val(stored_startdate);
+		}
+		
+				// check for stored name
+		var stored_blogurl = localStorage.getItem('blogurl');
+		if (stored_blogurl !== '') {
+			$('#blogurl').val(stored_blogurl);
+		}
+		
+				// check for stored name
+		var stored_vigilantename = localStorage.getItem('vigilantename');
+		if (stored_vigilantename !== '') {
+			$('#vigilantename').val(stored_vigilantename);
+		}
+		
+				// check for stored name
+		var stored_symbol = localStorage.getItem('symbol');
+		if (stored_symbol !== '') {
+			$('#symbol').val(stored_symbol);
+		}
+		
+				// check for stored name
+		var stored_primarycolor = localStorage.getItem('primarycolor');
+		if (stored_primarycolor !== '') {
+			$('#primarycolor').val(stored_primarycolor);
+		}
+		
+				// check for stored name
+		var stored_motivations = localStorage.getItem('motivations');
+		if (stored_motivations !== '') {
+			$('#motivations').val(stored_motivations);
+		}
+		
+				// check for stored name
+		var stored_weapon = localStorage.getItem('weapon');
+		if (stored_weapon !== '') {
+			$('#weapon').val(stored_weapon);
+		}
+		
+					// check for stored name
+		var stored_reason = localStorage.getItem('reason');
+		if (stored_reason !== '') {
+			$('#reason').val(stored_reason);
+		}	
+
+	}
 	
-	//targets input of searchbar
- $('input:#searchBar').val();
-//search button shows new input text when clicked
-	$("#search-button").click(function () {
- //places input text in a p tag (shows text)
-	$('#searchTerm').html($('input:#searchBar').val());
-		var searchValue=$('input:#searchBar').val()
-	console.log(searchValue);
 	
+	// clear localStorage and interface
+		clear.click(function(e) {
+			e.preventDefault();
+
+			window.localStorage.clear();
+			index.html('');
+
+		
+		});
 	
-//begins twitter api
-
-			$.ajax({
-url: 'http://search.twitter.com/search.json?q='+ searchValue +'&rpp=20&include_entities=false&result_type=mixed',
-dataType: 'jsonp',
-type: 'GET',
-jsonpCallback: 'handle_tweets',
-success: function(data){
-
-console.log(data)
-
-var first_tweet = data.results[0];
-for( var i = 0; i < data.results.length; i++) {
-}
-
-console.log(first_tweet.text)
-console.log(first_tweet.from_user)
-console.log(first_tweet.profile_image_url);
-
-
-$('#user-list').append("<br />" + first_tweet.from_user)
-$('#user-list').append("<br />" + "<a href='http://twitter.com/#!/" + first_tweet.from_user + "'>" + "<img src='" +first_tweet.profile_image_url+ "' />" + "</a>" + "<br />")
-
-$('#tweet-list').append("<br />" + "<a href='http://twitter.com/#!/" + first_tweet.from_user + "'>" + "<img src='" +first_tweet.profile_image_url+ "' />" + "</a>" + "<br />")
-$('#tweet-list').append("<li>"+ first_tweet.text + "</li>")
-
-
-
-
-}
-});
-	
-	
-
-
-	
-
-	
-	
-	
-	
-	
-    });
-	
-
-
-	
-
-
 	
 </script>
 
